@@ -75,7 +75,7 @@ export class Board extends Record implements Deserialisable {
         ...(cell.linked_board_id && {
           load_board: {
             id: cell.linked_board_id.toString(),
-            path: "boards/" + cell.linked_board_id.toString()
+            path: "boards/" + cell.linked_board_id.toString() + ".obf"
           }
         })
       })),
