@@ -76,6 +76,13 @@ export class CellEditorComponent implements OnChanges, OnDestroy {
 
   afterCellLinkedToBoard() {
     this.saveCell(success => {
+      // If linked board was root, current board is now root
+      if (this.board.is_root) {
+        // Unsure if this.cell.board? is always set at this point
+        this.boardSet.boards[this.cell.board_id].is_root = true;
+        this.board.is_root = false;
+      }
+      
       this.cellLinkedToBoard.emit(true);
       this.loadLinkedBoard();
     });
