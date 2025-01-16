@@ -7,6 +7,7 @@ import {BoardTemplate} from '@data/models/board-template.model';
 import {Media} from '@data/models/media.model';
 
 export class Board extends Record implements Deserialisable {
+  is_root: boolean;
   board_set_id: number;
   header_media_id: number;
   name: string;
@@ -19,6 +20,7 @@ export class Board extends Record implements Deserialisable {
 
   constructor(init?: Partial<Board>) {
       super();
+      this.is_root = false; // Set by initializer of this class if necessary
       this.cells = new Array<Cell>();
       if (init) { this.deserialise(init); }
       this.populateCells();
@@ -71,7 +73,13 @@ export class Board extends Record implements Deserialisable {
         image_id: cellId(cell),
         label: cell.caption,
         border_color: cell.border_colour,
-        background_color: cell.background_colour
+        background_color: cell.background_colour,
+        ...(cell.linked_board_id && {
+          load_board: {
+            id: cell.linked_board_id.toString(),
+            path: "boards/" + cell.linked_board_id.toString()
+          }
+        })
       })),
       grid: {
         rows: this.rows,

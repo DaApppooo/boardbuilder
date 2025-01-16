@@ -31,7 +31,7 @@ export class BoardSet extends Record implements Deserialisable {
 
     addBoard() {
         // Forces change detection by changing the Boards array reference.
-        this.boards = this.boards.concat([new Board({ title: 'Board ' + (this.boards.length + 1) })]);
+        this.boards = this.boards.concat([new Board({ is_root: false, title: 'Board ' + (this.boards.length + 1) })]);
     }
 
     deleteBoard(board: Board) {

@@ -35,6 +35,7 @@ export class NewBoardSetDialogComponent implements OnInit {
     });
 
     this.board = new Board({
+      is_root: true,
       name: 'Board 1',
       rows: 3,
       columns: 4,

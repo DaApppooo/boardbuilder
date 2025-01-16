@@ -63,10 +63,16 @@ export class BoardSetService {
   convertToObz(boardSet: BoardSet): Promise<any> {
     const zip = new JSZip();
 
+    for (var root_index in boardSet.boards)
+    {
+      if (boardSet.boards[root_index].is_root)
+        break;
+    }
+
     // Prepare the bare OBZ Manifest data
     const manifest: ObzManifest = {
       format: 'open-board-0.1',
-      root: 'boards/' + boardSet.boards[0].id + '.obf',
+      root: 'boards/' + root_index.toString() + '.obf',
       paths: {
         boards: { },
         images: { },
